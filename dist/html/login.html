@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login - ZIST</title>
+  <script type="module" crossorigin src="/assets/navbar-99QUXTmQ.js"></script>
+  <link rel="stylesheet" crossorigin href="/assets/navbar-iXG2ozy1.css">
+  <link rel="stylesheet" crossorigin href="/assets/login-Bm7fWKDo.css">
+</head>
+  <body>
+    <div class="login-page-v3">
+      <div class="login-container-v3">
+        <div class="login-left-v3">
+          <div class="login-logo-wrap">
+            <a href="../index.html"
+              ><img src="/zistv2-logo.png" alt="Zist Logo" class="login-logo"
+            /></a>
+            <span class="login-brand">ZIST</span>
+          </div>
+
+          <div class="login-content">
+            <h1 class="login-title">Welcome Back</h1>
+            <p class="login-subtitle">
+              Welcome back! Please enter your details.
+            </p>
+
+            <form class="login-form" action="./dashboard.html" method="get">
+              <div class="login-field">
+                <label for="email" class="login-label">Email</label>
+                <input
+                  id="email"
+                  type="email"
+                  placeholder="Enter your email"
+                  required
+                  class="login-input"
+                />
+              </div>
+
+              <div class="login-field">
+                <label for="password" class="login-label">Password</label>
+                <div class="login-password-wrap">
+                  <input
+                    id="password"
+                    type="password"
+                    placeholder="********"
+                    required
+                    class="login-input"
+                  />
+                  <button
+                    type="button"
+                    class="login-password-toggle"
+                    id="toggle-password"
+                    aria-label="Show or hide password"
+                  >
+                    Show
+                  </button>
+                </div>
+              </div>
+
+              <div class="login-footer-row">
+                <div class="login-checkbox-wrap">
+                  <input id="remember" type="checkbox" class="login-checkbox" />
+                  <label for="remember" class="login-checkbox-label"
+                    >Remember me</label
+                  >
+                </div>
+                <a href="./forgot-password.html" class="login-forgot-link"
+                  >Forgot password</a
+                >
+              </div>
+
+              <button type="submit" class="login-btn-signin">Sign in</button>
+            </form>
+
+            <div class="login-divider"><span>or</span></div>
+
+            <button class="login-btn-google" type="button">
+              Sign in with Google
+            </button>
+
+            <p class="login-signup-text">
+              Don't have an account?
+              <a href="./signup.html" class="login-signup-link"
+                >Sign up for free!</a
+              >
+            </p>
+          </div>
+        </div>
+
+        <div class="login-right-v3">
+          <img src="/bg.jpg" alt="Welcome illustration" class="login-image" />
+          <div class="login-image-overlay" aria-hidden="true"></div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      const AUTH_KEY = "zist-authenticated";
+      const loginForm = document.querySelector(".login-form");
+      const passwordInput = document.getElementById("password");
+      const togglePassword = document.getElementById("toggle-password");
+
+      loginForm.addEventListener("submit", function () {
+        localStorage.setItem(AUTH_KEY, "true");
+      });
+
+      togglePassword.addEventListener("click", function () {
+        const isPassword = passwordInput.getAttribute("type") === "password";
+        passwordInput.setAttribute("type", isPassword ? "text" : "password");
+        togglePassword.textContent = isPassword ? "Hide" : "Show";
+      });
+    </script>
+</body>
+</html>
+
+
+
+
+
+
+
+

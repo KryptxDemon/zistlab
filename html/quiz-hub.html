@@ -1,0 +1,299 @@
+﻿<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Quiz Hub - ZIST</title>
+    <link rel="stylesheet" href="../css/quiz-hub.css" />
+    <link rel="stylesheet" href="../css/dark-theme.css" />
+      <link rel="stylesheet" href="/css/navbar.css" />
+</head>
+  <body>
+    <main class="panel">
+      <h1>Quiz Hub</h1>
+      <p>Start quick quizzes for active recall.</p>
+
+      <section class="kpi-row">
+        <article class="kpi-card">
+          <h3>Current Streak</h3>
+          <strong>6 days</strong>
+        </article>
+        <article class="kpi-card">
+          <h3>Avg Accuracy</h3>
+          <strong>84%</strong>
+        </article>
+        <article class="kpi-card">
+          <h3>Quizzes This Week</h3>
+          <strong>19</strong>
+        </article>
+      </section>
+
+      <section class="mode-section">
+        <h2>Choose Quiz Mode</h2>
+        <div class="mode-grid">
+          <article class="mode-card">
+            <h3>Theme Match</h3>
+            <p>Connect quotes and scenes to the right theme labels.</p>
+            <button type="button">Start 10 Questions</button>
+          </article>
+          <article class="mode-card">
+            <h3>Vocabulary Recall</h3>
+            <p>Fill missing words from your saved media context cards.</p>
+            <button type="button">Start Timed Round</button>
+          </article>
+          <article class="mode-card">
+            <h3>Insight Builder</h3>
+            <p>Pick strongest interpretation from similar quote variants.</p>
+            <button type="button">Start Adaptive Quiz</button>
+          </article>
+        </div>
+      </section>
+
+      <section class="challenge-banner">
+        <div>
+          <h2>Recommended Challenge</h2>
+          <p>
+            Based on your recent misses, practice the "Power and Society" set
+            next.
+          </p>
+        </div>
+        <a href="./quiz-session.html">Open Challenge</a>
+      </section>
+
+      <section class="sample-quiz" id="sample-quiz">
+        <div class="quiz-head">
+          <h2>Sample Quiz (5 Questions)</h2>
+          <div class="quiz-timer" id="quiz-timer">01:30</div>
+        </div>
+
+        <div class="quiz-meta">
+          <span id="quiz-progress">Question 1 of 5</span>
+          <button type="button" id="quiz-start">Start Quiz</button>
+        </div>
+
+        <article class="quiz-card" id="quiz-card">
+          <h3 id="quiz-question">Press Start Quiz to begin.</h3>
+          <div class="quiz-options" id="quiz-options"></div>
+        </article>
+
+        <div class="quiz-actions">
+          <button type="button" id="quiz-next" disabled>Next</button>
+          <button type="button" id="quiz-submit" disabled>Submit</button>
+        </div>
+
+        <div class="quiz-result" id="quiz-result"></div>
+
+        <div class="score-history">
+          <h3>Saved Marks</h3>
+          <ul id="score-list"></ul>
+        </div>
+      </section>
+    </main>
+
+    <script>
+      const quizData = [
+        {
+          question:
+            "Which theme best matches the quote: 'We accept the love we think we deserve'?",
+          options: ["Power", "Identity", "Belonging", "Justice"],
+          answer: 2,
+        },
+        {
+          question: "'Resilience' most closely means:",
+          options: [
+            "Avoiding change",
+            "Quick recovery from difficulty",
+            "Fear of failure",
+            "Strict discipline",
+          ],
+          answer: 1,
+        },
+        {
+          question: "In ZIST, a 'theme insight' is:",
+          options: [
+            "A random quote",
+            "A summary of the ending",
+            "A pattern or idea connected across media",
+            "A movie rating",
+          ],
+          answer: 2,
+        },
+        {
+          question: "Which activity strengthens active recall most?",
+          options: [
+            "Re-reading notes only",
+            "Watching passively",
+            "Timed quizzes from saved media",
+            "Collecting posters",
+          ],
+          answer: 2,
+        },
+        {
+          question: "A good vocabulary note should include:",
+          options: [
+            "Only definition",
+            "Word + context sentence",
+            "Only pronunciation",
+            "Only synonym",
+          ],
+          answer: 1,
+        },
+      ];
+
+      const STORAGE_KEY = "zist-sample-quiz-scores";
+      const timerEl = document.getElementById("quiz-timer");
+      const progressEl = document.getElementById("quiz-progress");
+      const questionEl = document.getElementById("quiz-question");
+      const optionsEl = document.getElementById("quiz-options");
+      const resultEl = document.getElementById("quiz-result");
+      const startBtn = document.getElementById("quiz-start");
+      const nextBtn = document.getElementById("quiz-next");
+      const submitBtn = document.getElementById("quiz-submit");
+      const scoreList = document.getElementById("score-list");
+
+      let currentIndex = 0;
+      let selectedAnswer = null;
+      let answers = [];
+      let seconds = 90;
+      let timerId = null;
+      let running = false;
+
+      function formatTime(totalSeconds) {
+        const m = String(Math.floor(totalSeconds / 60)).padStart(2, "0");
+        const s = String(totalSeconds % 60).padStart(2, "0");
+        return m + ":" + s;
+      }
+
+      function renderScores() {
+        const scores = JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]");
+        scoreList.innerHTML = "";
+
+        if (!scores.length) {
+          const li = document.createElement("li");
+          li.textContent = "No scores saved yet.";
+          scoreList.appendChild(li);
+          return;
+        }
+
+        scores.slice(0, 8).forEach((entry) => {
+          const li = document.createElement("li");
+          li.textContent =
+            entry.date + " - " + entry.score + "/5 (" + entry.percent + "%)";
+          scoreList.appendChild(li);
+        });
+      }
+
+      function renderQuestion() {
+        const item = quizData[currentIndex];
+        progressEl.textContent =
+          "Question " + (currentIndex + 1) + " of " + quizData.length;
+        questionEl.textContent = item.question;
+        optionsEl.innerHTML = "";
+        selectedAnswer = answers[currentIndex] ?? null;
+
+        item.options.forEach((opt, idx) => {
+          const btn = document.createElement("button");
+          btn.type = "button";
+          btn.className =
+            "option-btn" + (selectedAnswer === idx ? " selected" : "");
+          btn.textContent = opt;
+          btn.addEventListener("click", () => {
+            selectedAnswer = idx;
+            answers[currentIndex] = idx;
+            renderQuestion();
+            nextBtn.disabled = false;
+            submitBtn.disabled = false;
+          });
+          optionsEl.appendChild(btn);
+        });
+
+        nextBtn.disabled =
+          selectedAnswer === null || currentIndex === quizData.length - 1;
+        submitBtn.disabled = answers.length !== quizData.length;
+      }
+
+      function stopTimer() {
+        if (timerId) {
+          clearInterval(timerId);
+          timerId = null;
+        }
+      }
+
+      function finishQuiz(reason) {
+        stopTimer();
+        running = false;
+        const correct = quizData.reduce(
+          (sum, q, i) => sum + (answers[i] === q.answer ? 1 : 0),
+          0,
+        );
+        const percent = Math.round((correct / quizData.length) * 100);
+        resultEl.textContent =
+          "Score: " +
+          correct +
+          "/" +
+          quizData.length +
+          " (" +
+          percent +
+          "%)" +
+          (reason ? " - " + reason : "");
+
+        const scores = JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]");
+        scores.unshift({
+          date: new Date().toLocaleString(),
+          score: correct,
+          percent,
+        });
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(scores));
+        renderScores();
+        startBtn.disabled = false;
+        nextBtn.disabled = true;
+        submitBtn.disabled = true;
+      }
+
+      function startQuiz() {
+        answers = [];
+        currentIndex = 0;
+        seconds = 90;
+        running = true;
+        startBtn.disabled = true;
+        resultEl.textContent = "";
+        timerEl.textContent = formatTime(seconds);
+        renderQuestion();
+
+        stopTimer();
+        timerId = setInterval(() => {
+          seconds -= 1;
+          timerEl.textContent = formatTime(seconds);
+          if (seconds <= 0) {
+            finishQuiz("Time up");
+          }
+        }, 1000);
+      }
+
+      startBtn.addEventListener("click", startQuiz);
+
+      nextBtn.addEventListener("click", () => {
+        if (!running || currentIndex >= quizData.length - 1) {
+          return;
+        }
+        currentIndex += 1;
+        renderQuestion();
+      });
+
+      submitBtn.addEventListener("click", () => {
+        if (!running) {
+          return;
+        }
+        finishQuiz("");
+      });
+
+      timerEl.textContent = formatTime(seconds);
+      renderScores();
+    </script>
+    <script type="module" src="../js/theme-toggle.js"></script>
+    <script type="module" src="/js/navbar.js"></script>
+</body>
+</html>
+
+
+

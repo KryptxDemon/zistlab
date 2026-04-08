@@ -1,0 +1,204 @@
+﻿<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dashboard - ZIST</title>
+    <link rel="stylesheet" href="../css/dashboard.css" />
+    <link rel="stylesheet" href="../css/dark-theme.css" />
+    <link rel="stylesheet" href="/css/navbar.css" />
+</head>
+  <body>
+    <main class="panel">
+      <h1>Dashboard</h1>
+      <p>Track your learning at a glance.</p>
+
+      <section class="dashboard-grid">
+        <article class="widget">
+          <h2>Learning Stats</h2>
+          <div class="stats">
+            <div class="stat">
+              <span class="label">Total Sessions</span>
+              <span class="value" id="stat-total">0</span>
+            </div>
+            <div class="stat">
+              <span class="label">Completed</span>
+              <span class="value" id="stat-completed">0</span>
+            </div>
+            <div class="stat">
+              <span class="label">Focus Minutes</span>
+              <span class="value" id="stat-minutes">0</span>
+            </div>
+            <div class="stat">
+              <span class="label">Completion Rate</span>
+              <span class="value" id="stat-rate">0%</span>
+            </div>
+          </div>
+        </article>
+
+        <article class="widget">
+          <h2>Daily Progress</h2>
+          <div class="progress-track" aria-label="Completion progress">
+            <div class="progress-fill" id="progress-fill"></div>
+          </div>
+          <p id="progress-copy">
+            No sessions yet. Add your first learning session.
+          </p>
+        </article>
+
+        <article class="widget widget-wide">
+          <h2>Session Planner</h2>
+          <form class="session-form" id="session-form">
+            <input
+              id="session-title"
+              type="text"
+              placeholder="Session title (e.g. Review 20 vocabulary words)"
+              required
+            />
+            <input
+              id="session-minutes"
+              type="number"
+              placeholder="Minutes"
+              min="1"
+              max="300"
+              required
+            />
+            <button type="submit">Add</button>
+          </form>
+          <ul id="session-list" class="session-list"></ul>
+        </article>
+      </section>
+    </main>
+
+    <script>
+      const STORAGE_KEY = "zist-dashboard-sessions";
+
+      const form = document.getElementById("session-form");
+      const titleInput = document.getElementById("session-title");
+      const minutesInput = document.getElementById("session-minutes");
+      const list = document.getElementById("session-list");
+
+      const statTotal = document.getElementById("stat-total");
+      const statCompleted = document.getElementById("stat-completed");
+      const statMinutes = document.getElementById("stat-minutes");
+      const statRate = document.getElementById("stat-rate");
+      const progressFill = document.getElementById("progress-fill");
+      const progressCopy = document.getElementById("progress-copy");
+
+      function readSessions() {
+        try {
+          const data = localStorage.getItem(STORAGE_KEY);
+          return data ? JSON.parse(data) : [];
+        } catch (_error) {
+          return [];
+        }
+      }
+
+      function writeSessions(sessions) {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(sessions));
+      }
+
+      function render() {
+        const sessions = readSessions();
+        list.innerHTML = "";
+
+        sessions.forEach((session) => {
+          const item = document.createElement("li");
+          item.className = "session-item" + (session.done ? " done" : "");
+
+          const left = document.createElement("div");
+          left.innerHTML =
+            '<span class="session-name"></span><span class="session-meta"></span>';
+          left.querySelector(".session-name").textContent = session.title;
+          left.querySelector(".session-meta").textContent =
+            session.minutes +
+            " min" +
+            (session.done ? " - completed" : " - pending");
+
+          const controls = document.createElement("div");
+
+          const toggle = document.createElement("button");
+          toggle.className = "action";
+          toggle.textContent = session.done ? "Undo" : "Done";
+          toggle.addEventListener("click", () => {
+            const next = readSessions().map((s) =>
+              s.id === session.id ? { ...s, done: !s.done } : s,
+            );
+            writeSessions(next);
+            render();
+          });
+
+          const remove = document.createElement("button");
+          remove.className = "action";
+          remove.style.background = "#8a3f4c";
+          remove.textContent = "Delete";
+          remove.addEventListener("click", () => {
+            const next = readSessions().filter((s) => s.id !== session.id);
+            writeSessions(next);
+            render();
+          });
+
+          controls.append(toggle, remove);
+          item.append(left, controls);
+          list.appendChild(item);
+        });
+
+        const total = sessions.length;
+        const completed = sessions.filter((s) => s.done).length;
+        const minutes = sessions
+          .filter((s) => s.done)
+          .reduce((sum, s) => sum + Number(s.minutes || 0), 0);
+        const rate = total ? Math.round((completed / total) * 100) : 0;
+
+        statTotal.textContent = String(total);
+        statCompleted.textContent = String(completed);
+        statMinutes.textContent = String(minutes);
+        statRate.textContent = rate + "%";
+        progressFill.style.width = rate + "%";
+
+        if (!total) {
+          progressCopy.textContent =
+            "No sessions yet. Add your first learning session.";
+        } else {
+          progressCopy.textContent =
+            completed + " of " + total + " sessions completed today.";
+        }
+      }
+
+      form.addEventListener("submit", (event) => {
+        event.preventDefault();
+        const title = titleInput.value.trim();
+        const minutes = Number(minutesInput.value);
+
+        if (!title || !minutes || minutes < 1) {
+          return;
+        }
+
+        const sessions = readSessions();
+        sessions.unshift({
+          id: Date.now(),
+          title,
+          minutes,
+          done: false,
+        });
+
+        writeSessions(sessions);
+        form.reset();
+        titleInput.focus();
+        render();
+      });
+
+      render();
+    </script>
+    <script type="module" src="../js/theme-toggle.js"></script>
+  <script type="module" src="/js/navbar.js"></script>
+</body>
+</html>
+
+
+
+
+
+
+
+

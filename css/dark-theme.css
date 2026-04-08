@@ -1,0 +1,271 @@
+.theme-toggle {
+  position: fixed;
+  right: 18px;
+  bottom: 18px;
+  z-index: 1000;
+  border: 1px solid #334273;
+  border-radius: 999px;
+  padding: 10px 14px;
+  font:
+    600 13px/1 "Poppins",
+    sans-serif;
+  cursor: pointer;
+  background: #ffffff;
+  color: #243863;
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.16);
+}
+
+html.theme-dark {
+  color-scheme: dark;
+}
+
+html.theme-dark,
+html.theme-dark body {
+  background: #0b1020 !important;
+  color: #d7def7 !important;
+}
+
+html.theme-dark body {
+  background-image:
+    radial-gradient(
+      circle at 10% 0%,
+      rgba(89, 116, 255, 0.18),
+      transparent 34%
+    ),
+    radial-gradient(
+      circle at 100% 100%,
+      rgba(123, 223, 255, 0.12),
+      transparent 36%
+    ),
+    linear-gradient(160deg, #0b1020 0%, #121a33 60%, #182242 100%) !important;
+}
+
+html.theme-dark .topbar,
+html.theme-dark .panel,
+html.theme-dark .widget,
+html.theme-dark .card,
+html.theme-dark .kpi-card,
+html.theme-dark .mode-card,
+html.theme-dark .challenge-banner,
+html.theme-dark .activity-section,
+html.theme-dark .post-card,
+html.theme-dark .profile-card,
+html.theme-dark .metric-card,
+html.theme-dark .shelf-card,
+html.theme-dark .focus-section,
+html.theme-dark .score-history,
+html.theme-dark .quiz-card,
+html.theme-dark .feed-summary article,
+html.theme-dark .forgot-card,
+html.theme-dark .login-content,
+html.theme-dark .signup-content {
+  background: linear-gradient(
+    150deg,
+    rgba(22, 31, 56, 0.92),
+    rgba(15, 23, 43, 0.92)
+  ) !important;
+  border-color: #2a3761 !important;
+  color: #d7def7 !important;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.35) !important;
+}
+
+html.theme-dark .brand,
+html.theme-dark h1,
+html.theme-dark h2,
+html.theme-dark h3,
+html.theme-dark h4,
+html.theme-dark strong,
+html.theme-dark .session-name,
+html.theme-dark .vocab-term {
+  color: #eff3ff !important;
+}
+
+html.theme-dark p,
+html.theme-dark span,
+html.theme-dark label,
+html.theme-dark li,
+html.theme-dark time,
+html.theme-dark .session-meta,
+html.theme-dark .post-context,
+html.theme-dark .post-example,
+html.theme-dark #progress-copy,
+html.theme-dark .quiz-meta span,
+html.theme-dark .feed-summary p,
+html.theme-dark .activity-list p,
+html.theme-dark .activity-list time,
+html.theme-dark .metric-card p,
+html.theme-dark .shelf-card p,
+html.theme-dark .profile-card p {
+  color: #b4c0e6 !important;
+}
+
+html.theme-dark .nav a,
+html.theme-dark .feed-filters button,
+html.theme-dark .theme-chips span,
+html.theme-dark .badges span,
+html.theme-dark .chips span,
+html.theme-dark .shelf-meta span,
+html.theme-dark .challenge-banner a,
+html.theme-dark .section-head a,
+html.theme-dark .score-history li {
+  background: #17213f !important;
+  border-color: #334273 !important;
+  color: #c9d5ff !important;
+}
+
+html.theme-dark .nav a:hover,
+html.theme-dark .feed-filters button:hover,
+html.theme-dark .challenge-banner a:hover,
+html.theme-dark .section-head a:hover {
+  background: #202c52 !important;
+  color: #e6ecff !important;
+}
+
+html.theme-dark .feed-filters .active {
+  background: linear-gradient(135deg, #4f67ff, #7d9dff) !important;
+  border-color: transparent !important;
+  color: #ffffff !important;
+}
+
+html.theme-dark button,
+html.theme-dark .action,
+html.theme-dark .mode-card button,
+html.theme-dark .session-form button,
+html.theme-dark .quiz-meta button,
+html.theme-dark .quiz-actions button,
+html.theme-dark .profile-hero button,
+html.theme-dark .signup-btn-signup,
+html.theme-dark .signup-btn-google,
+html.theme-dark .login-btn-signin,
+html.theme-dark .login-btn-google,
+html.theme-dark .forgot-form button,
+html.theme-dark .theme-toggle {
+  background: linear-gradient(135deg, #4b63ff, #6f88ff) !important;
+  color: #ffffff !important;
+  border-color: #4159ee !important;
+}
+
+html.theme-dark input,
+html.theme-dark textarea,
+html.theme-dark select,
+html.theme-dark .login-input,
+html.theme-dark .signup-input,
+html.theme-dark .session-form input,
+html.theme-dark .forgot-form input {
+  background: #111a32 !important;
+  color: #e4ebff !important;
+  border-color: #334273 !important;
+}
+
+html.theme-dark input::placeholder,
+html.theme-dark textarea::placeholder,
+html.theme-dark .login-input::placeholder,
+html.theme-dark .signup-input::placeholder {
+  color: #8f9cc8 !important;
+}
+
+html.theme-dark .option-btn,
+html.theme-dark .activity-list li,
+html.theme-dark .stat,
+html.theme-dark .profile-hero,
+html.theme-dark .community-section .post-card {
+  background: #141d37 !important;
+  border-color: #324172 !important;
+  color: #d7def7 !important;
+}
+
+html.theme-dark .option-btn.selected {
+  background: linear-gradient(145deg, #243266, #1f2a55) !important;
+  border-color: #5f79ff !important;
+}
+
+html.theme-dark .progress-track,
+html.theme-dark .signup-strength-progress {
+  background: #1f2b51 !important;
+  border-color: #334273 !important;
+}
+
+html.theme-dark .progress-fill,
+html.theme-dark .signup-strength-fill {
+  background: linear-gradient(90deg, #5d7dff, #7fb0ff) !important;
+}
+
+html.theme-dark .dot {
+  background: #78a0ff !important;
+  box-shadow: 0 0 0 5px rgba(120, 160, 255, 0.2) !important;
+}
+
+html.theme-dark .landing-page-v3 {
+  background: linear-gradient(
+    160deg,
+    #0b1020 0%,
+    #121a33 60%,
+    #182242 100%
+  ) !important;
+  color: #e7eeff !important;
+}
+
+html.theme-dark .landing-page-v3::after {
+  background-image:
+    radial-gradient(
+      circle at 20% 50%,
+      rgba(95, 125, 255, 0.14) 0%,
+      transparent 50%
+    ),
+    radial-gradient(
+      circle at 80% 80%,
+      rgba(123, 223, 255, 0.1) 0%,
+      transparent 50%
+    ) !important;
+}
+
+html.theme-dark .landing-v3-brand,
+html.theme-dark .landing-v3-title,
+html.theme-dark .landing-v3-section-title,
+html.theme-dark .landing-v3-footer-brand,
+html.theme-dark .landing-v3-theme-row h3,
+html.theme-dark .landing-v3-cap-card h3 {
+  color: #eff3ff !important;
+}
+
+html.theme-dark .landing-v3-overline,
+html.theme-dark .landing-v3-copy,
+html.theme-dark .landing-v3-section-kicker,
+html.theme-dark .landing-v3-cap-card p,
+html.theme-dark .landing-v3-theme-meta,
+html.theme-dark .landing-v3-footer p,
+html.theme-dark .landing-v3-theme-row span {
+  color: #b5c1e6 !important;
+}
+
+html.theme-dark .landing-v3-navbar,
+html.theme-dark .landing-v3-section,
+html.theme-dark .landing-v3-footer,
+html.theme-dark .landing-v3-cap-card,
+html.theme-dark .landing-v3-theme-card {
+  background: linear-gradient(
+    150deg,
+    rgba(22, 31, 56, 0.9),
+    rgba(15, 23, 43, 0.9)
+  ) !important;
+  border-color: #2a3761 !important;
+}
+
+html.theme-dark .landing-v3-login,
+html.theme-dark .landing-v3-lang,
+html.theme-dark .landing-v3-footer-links a,
+html.theme-dark .landing-v3-footer-links button {
+  color: #d2ddff !important;
+  border-color: #334273 !important;
+  background: #182446 !important;
+}
+
+html.theme-dark .landing-v3-signup,
+html.theme-dark .landing-v3-cta {
+  background: linear-gradient(135deg, #4b63ff, #6f88ff) !important;
+}
+
+html.theme-dark .landing-v3-signup:hover,
+html.theme-dark .landing-v3-cta:hover {
+  background: linear-gradient(135deg, #4159ee, #5f79ff) !important;
+}

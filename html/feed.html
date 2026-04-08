@@ -1,0 +1,458 @@
+﻿<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Feed - ZIST</title>
+    <link rel="stylesheet" href="../css/feed.css" />
+    <link rel="stylesheet" href="../css/dark-theme.css" />
+    <link rel="stylesheet" href="/css/navbar.css" />
+  </head>
+  <body>
+    <main class="panel">
+      <h1>Feed</h1>
+      <p>See your latest learning activity.</p>
+
+      <section class="feed-filters">
+        <button type="button" class="active">All Activity</button>
+        <button type="button">Quotes</button>
+        <button type="button">Vocabulary</button>
+        <button type="button">Themes</button>
+        <button type="button">Quizzes</button>
+      </section>
+
+      <section class="share-quote-section">
+        <h2>Share Your Favorite Quote</h2>
+        <p>Post a quote to the community feed and start discussions.</p>
+        <form id="quote-form" class="quote-form">
+          <label for="quote-text">Favorite quote</label>
+          <textarea
+            id="quote-text"
+            name="quoteText"
+            rows="3"
+            maxlength="280"
+            placeholder="Type a quote that inspired you..."
+            required
+          ></textarea>
+
+          <label for="quote-source">Source (optional)</label>
+          <input
+            id="quote-source"
+            name="quoteSource"
+            type="text"
+            maxlength="120"
+            placeholder="Interstellar, Book name, Podcast episode..."
+          />
+
+          <button type="submit">Share to Feed</button>
+        </form>
+      </section>
+
+      <section class="activity-section">
+        <h2>Recent Activity</h2>
+        <ul class="activity-list">
+          <li>
+            <span class="dot"></span>
+            <div>
+              <h3>Added 3 quotes from Interstellar</h3>
+              <p>Tagged with Hope, Sacrifice, and Human Curiosity.</p>
+            </div>
+            <time>2h ago</time>
+          </li>
+          <li>
+            <span class="dot"></span>
+            <div>
+              <h3>Completed Vocabulary Recall quiz</h3>
+              <p>Scored 18/20 with strong retention on episode-based terms.</p>
+            </div>
+            <time>Yesterday</time>
+          </li>
+          <li>
+            <span class="dot"></span>
+            <div>
+              <h3>Saved theme insight from Atomic Habits</h3>
+              <p>Mapped "Identity over outcomes" to your Growth board.</p>
+            </div>
+            <time>2d ago</time>
+          </li>
+        </ul>
+      </section>
+
+      <section class="community-section">
+        <h2>Community Shares</h2>
+        <div class="community-grid">
+          <article
+            class="post-card post-quote"
+            data-post-id="aria-interstellar"
+            data-default-likes="42"
+            data-default-comments="9"
+          >
+            <header>
+              <div class="avatar">AR</div>
+              <div>
+                <h3>Aria Mensah</h3>
+                <span>shared a quote • 1h ago</span>
+              </div>
+            </header>
+            <blockquote>
+              "Love is the one thing that transcends time and space."
+            </blockquote>
+            <p class="post-context">
+              From Interstellar • tagged: Hope, Connection
+            </p>
+
+            <div class="post-actions">
+              <button type="button" class="post-action-btn like-btn">
+                Like <span class="like-count">42</span>
+              </button>
+              <button type="button" class="post-action-btn comment-toggle-btn">
+                Comment <span class="comment-count">9</span>
+              </button>
+            </div>
+
+            <div class="comment-block">
+              <ul class="comment-list"></ul>
+              <form class="comment-form">
+                <input
+                  type="text"
+                  class="comment-input"
+                  maxlength="180"
+                  placeholder="Write a comment"
+                  required
+                />
+                <button type="submit">Post</button>
+              </form>
+            </div>
+          </article>
+
+          <article
+            class="post-card post-vocab"
+            data-post-id="kai-resilience"
+            data-default-likes="31"
+            data-default-comments="14"
+          >
+            <header>
+              <div class="avatar">KM</div>
+              <div>
+                <h3>Kai Morgan</h3>
+                <span>shared a vocab card • 3h ago</span>
+              </div>
+            </header>
+            <div class="vocab-term">Resilience</div>
+            <p class="post-context">
+              "The capacity to recover quickly from difficulties."
+            </p>
+            <p class="post-example">
+              Example from Ted Lasso S2E8 discussion thread.
+            </p>
+
+            <div class="post-actions">
+              <button type="button" class="post-action-btn like-btn">
+                Like <span class="like-count">31</span>
+              </button>
+              <button type="button" class="post-action-btn comment-toggle-btn">
+                Comment <span class="comment-count">14</span>
+              </button>
+            </div>
+
+            <div class="comment-block">
+              <ul class="comment-list"></ul>
+              <form class="comment-form">
+                <input
+                  type="text"
+                  class="comment-input"
+                  maxlength="180"
+                  placeholder="Write a comment"
+                  required
+                />
+                <button type="submit">Post</button>
+              </form>
+            </div>
+          </article>
+
+          <article
+            class="post-card post-theme"
+            data-post-id="lina-identity"
+            data-default-likes="27"
+            data-default-comments="6"
+          >
+            <header>
+              <div class="avatar">LN</div>
+              <div>
+                <h3>Lina Noor</h3>
+                <span>shared a theme insight • 5h ago</span>
+              </div>
+            </header>
+            <h4>Theme: Identity and Growth</h4>
+            <p class="post-context">
+              Across Barbie and Soul, self-worth grows when identity shifts from
+              performance to presence.
+            </p>
+
+            <div class="post-actions">
+              <button type="button" class="post-action-btn like-btn">
+                Like <span class="like-count">27</span>
+              </button>
+              <button type="button" class="post-action-btn comment-toggle-btn">
+                Comment <span class="comment-count">6</span>
+              </button>
+            </div>
+
+            <div class="comment-block">
+              <ul class="comment-list"></ul>
+              <form class="comment-form">
+                <input
+                  type="text"
+                  class="comment-input"
+                  maxlength="180"
+                  placeholder="Write a comment"
+                  required
+                />
+                <button type="submit">Post</button>
+              </form>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section class="feed-summary">
+        <article>
+          <h3>Most Active Category</h3>
+          <p>Movies generated 42% of your new notes this week.</p>
+        </article>
+        <article>
+          <h3>Fastest Growing Theme</h3>
+          <p>Identity and Growth received 11 new insights in 7 days.</p>
+        </article>
+      </section>
+    </main>
+
+    <script>
+      const CUSTOM_POSTS_KEY = "zist-feed-custom-posts";
+      const REACTIONS_KEY = "zist-feed-reactions";
+
+      const quoteForm = document.getElementById("quote-form");
+      const communityGrid = document.querySelector(".community-grid");
+
+      function readStorage(key, fallback) {
+        try {
+          const raw = localStorage.getItem(key);
+          return raw ? JSON.parse(raw) : fallback;
+        } catch (error) {
+          return fallback;
+        }
+      }
+
+      function writeStorage(key, value) {
+        localStorage.setItem(key, JSON.stringify(value));
+      }
+
+      const reactions = readStorage(REACTIONS_KEY, {});
+
+      function makeAvatar(name) {
+        const trimmed = name.trim();
+        if (!trimmed) {
+          return "YO";
+        }
+
+        const parts = trimmed.split(/\s+/);
+        if (parts.length === 1) {
+          return parts[0].slice(0, 2).toUpperCase();
+        }
+
+        return (parts[0][0] + parts[1][0]).toUpperCase();
+      }
+
+      function escapeHtml(value) {
+        return value
+          .replace(/&/g, "&amp;")
+          .replace(/</g, "&lt;")
+          .replace(/>/g, "&gt;")
+          .replace(/\"/g, "&quot;")
+          .replace(/'/g, "&#39;");
+      }
+
+      function ensureReactionState(postId, card) {
+        const defaultLikes = Number(card.dataset.defaultLikes || 0);
+        const defaultComments = Number(card.dataset.defaultComments || 0);
+
+        if (!reactions[postId]) {
+          reactions[postId] = {
+            baseLikes: defaultLikes,
+            likesDelta: 0,
+            liked: false,
+            baseComments: defaultComments,
+            comments: [],
+          };
+        }
+
+        return reactions[postId];
+      }
+
+      function renderComments(card, state) {
+        const list = card.querySelector(".comment-list");
+        list.innerHTML = "";
+
+        state.comments.forEach(function (text) {
+          const li = document.createElement("li");
+          li.textContent = text;
+          list.appendChild(li);
+        });
+      }
+
+      function renderCounts(card, state) {
+        const likeCount = card.querySelector(".like-count");
+        const commentCount = card.querySelector(".comment-count");
+        const likeBtn = card.querySelector(".like-btn");
+
+        likeCount.textContent = String(state.baseLikes + state.likesDelta);
+        commentCount.textContent = String(
+          state.baseComments + state.comments.length,
+        );
+        likeBtn.classList.toggle("liked", state.liked);
+        likeBtn.firstChild.textContent = state.liked ? "Liked " : "Like ";
+      }
+
+      function wirePostCard(card) {
+        const postId = card.dataset.postId;
+        if (!postId) {
+          return;
+        }
+
+        const state = ensureReactionState(postId, card);
+        const likeBtn = card.querySelector(".like-btn");
+        const commentToggleBtn = card.querySelector(".comment-toggle-btn");
+        const commentBlock = card.querySelector(".comment-block");
+        const commentForm = card.querySelector(".comment-form");
+        const commentInput = card.querySelector(".comment-input");
+
+        renderComments(card, state);
+        renderCounts(card, state);
+
+        likeBtn.addEventListener("click", function () {
+          state.liked = !state.liked;
+          state.likesDelta += state.liked ? 1 : -1;
+          writeStorage(REACTIONS_KEY, reactions);
+          renderCounts(card, state);
+        });
+
+        commentToggleBtn.addEventListener("click", function () {
+          commentBlock.classList.toggle("open");
+          if (commentBlock.classList.contains("open")) {
+            commentInput.focus();
+          }
+        });
+
+        commentForm.addEventListener("submit", function (event) {
+          event.preventDefault();
+          const text = commentInput.value.trim();
+
+          if (!text) {
+            return;
+          }
+
+          state.comments.push(text);
+          commentInput.value = "";
+          writeStorage(REACTIONS_KEY, reactions);
+          renderComments(card, state);
+          renderCounts(card, state);
+          commentBlock.classList.add("open");
+        });
+      }
+
+      function createCustomPostCard(post) {
+        const safeAuthor = escapeHtml(post.author || "You");
+        const safeQuote = escapeHtml(post.quote || "");
+        const safeSource = escapeHtml(post.source || "");
+        const sourceText = safeSource
+          ? "From " + safeSource
+          : "Shared from your notes";
+        const article = document.createElement("article");
+        article.className = "post-card post-quote user-post";
+        article.dataset.postId = post.id;
+        article.dataset.defaultLikes = "0";
+        article.dataset.defaultComments = "0";
+
+        article.innerHTML =
+          "<header>" +
+          '<div class="avatar">' +
+          makeAvatar(safeAuthor) +
+          "</div>" +
+          "<div><h3>" +
+          safeAuthor +
+          "</h3><span>shared a quote • just now</span></div>" +
+          "</header>" +
+          '<blockquote>"' +
+          safeQuote +
+          '"</blockquote>' +
+          '<p class="post-context">' +
+          sourceText +
+          "</p>" +
+          '<div class="post-actions">' +
+          '<button type="button" class="post-action-btn like-btn">Like <span class="like-count">0</span></button>' +
+          '<button type="button" class="post-action-btn comment-toggle-btn">Comment <span class="comment-count">0</span></button>' +
+          "</div>" +
+          '<div class="comment-block">' +
+          '<ul class="comment-list"></ul>' +
+          '<form class="comment-form">' +
+          '<input type="text" class="comment-input" maxlength="180" placeholder="Write a comment" required />' +
+          '<button type="submit">Post</button>' +
+          "</form>" +
+          "</div>";
+
+        return article;
+      }
+
+      function renderCustomPosts() {
+        const existingCustom = communityGrid.querySelectorAll(".user-post");
+        existingCustom.forEach(function (node) {
+          node.remove();
+        });
+
+        const posts = readStorage(CUSTOM_POSTS_KEY, []);
+        posts
+          .slice()
+          .reverse()
+          .forEach(function (post) {
+            const card = createCustomPostCard(post);
+            communityGrid.insertBefore(card, communityGrid.firstChild);
+            wirePostCard(card);
+          });
+      }
+
+      quoteForm.addEventListener("submit", function (event) {
+        event.preventDefault();
+
+        const quoteTextInput = document.getElementById("quote-text");
+        const quoteSourceInput = document.getElementById("quote-source");
+        const quoteText = quoteTextInput.value.trim();
+        const quoteSource = quoteSourceInput.value.trim();
+
+        if (!quoteText) {
+          return;
+        }
+
+        const posts = readStorage(CUSTOM_POSTS_KEY, []);
+        posts.unshift({
+          id: "user-quote-" + Date.now(),
+          author: "You",
+          quote: quoteText,
+          source: quoteSource,
+        });
+
+        writeStorage(CUSTOM_POSTS_KEY, posts.slice(0, 25));
+        quoteForm.reset();
+        renderCustomPosts();
+      });
+
+      communityGrid.querySelectorAll(".post-card").forEach(function (card) {
+        wirePostCard(card);
+      });
+
+      renderCustomPosts();
+      writeStorage(REACTIONS_KEY, reactions);
+    </script>
+    <script type="module" src="../js/theme-toggle.js"></script>
+    <script type="module" src="/js/navbar.js"></script>
+  </body>
+</html>

@@ -1,0 +1,214 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sign Up - ZIST</title>
+  <script type="module" crossorigin src="/assets/navbar-99QUXTmQ.js"></script>
+  <link rel="stylesheet" crossorigin href="/assets/navbar-iXG2ozy1.css">
+  <link rel="stylesheet" crossorigin href="/assets/signup-DaJFVz8d.css">
+</head>
+  <body>
+    <div class="signup-page-v3">
+      <div class="signup-container-v3">
+        <div class="signup-left-v3">
+          <div class="signup-logo-wrap">
+            <a href="../index.html"
+              ><img src="/zistv2-logo.png" alt="Zist Logo" class="signup-logo"
+            /></a>
+            <span class="signup-brand">ZIST</span>
+          </div>
+
+          <div class="signup-content">
+            <h1 class="signup-title">Create Account</h1>
+            <p class="signup-subtitle">Join us and start learning today</p>
+
+            <form class="signup-form" action="./dashboard.html" method="get">
+              <div class="signup-field">
+                <label for="displayName" class="signup-label"
+                  >Display Name</label
+                >
+                <input
+                  id="displayName"
+                  type="text"
+                  placeholder="Enter your name"
+                  required
+                  class="signup-input"
+                />
+              </div>
+
+              <div class="signup-field">
+                <label for="email" class="signup-label">Email</label>
+                <input
+                  id="email"
+                  type="email"
+                  placeholder="Enter your email"
+                  required
+                  class="signup-input"
+                />
+              </div>
+
+              <div class="signup-field">
+                <label for="password" class="signup-label">Password</label>
+                <div class="signup-password-wrap">
+                  <input
+                    id="password"
+                    type="password"
+                    placeholder="********"
+                    required
+                    class="signup-input"
+                  />
+                  <button
+                    type="button"
+                    class="signup-password-toggle"
+                    id="toggle-password"
+                    aria-label="Show or hide password"
+                  >
+                    Show
+                  </button>
+                </div>
+
+                <div
+                  class="signup-password-strength"
+                  id="password-strength"
+                  hidden
+                >
+                  <div class="signup-strength-bar">
+                    <div class="signup-strength-progress">
+                      <div
+                        class="signup-strength-fill"
+                        id="strength-fill"
+                        style="width: 0%"
+                      ></div>
+                    </div>
+                    <span class="signup-strength-label" id="strength-label"
+                      >Weak</span
+                    >
+                  </div>
+                  <div class="signup-requirements">
+                    <div class="signup-requirement" id="req-length">
+                      At least 8 characters
+                    </div>
+                    <div class="signup-requirement" id="req-upper">
+                      One uppercase letter
+                    </div>
+                    <div class="signup-requirement" id="req-number">
+                      One number
+                    </div>
+                    <div class="signup-requirement" id="req-special">
+                      One special character
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <button type="submit" class="signup-btn-signup">Sign up</button>
+            </form>
+
+            <div class="signup-divider"><span>or</span></div>
+
+            <button class="signup-btn-google" type="button">
+              Sign up with Google
+            </button>
+
+            <p class="signup-signin-text">
+              Already have an account?
+              <a href="./login.html" class="signup-signin-link">Sign in</a>
+            </p>
+          </div>
+        </div>
+
+        <div class="signup-right-v3">
+          <img src="/bg.jpg" alt="Welcome illustration" class="signup-image" />
+          <div class="signup-image-overlay" aria-hidden="true"></div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      const AUTH_KEY = "zist-authenticated";
+      const signupForm = document.querySelector(".signup-form");
+      const passwordInput = document.getElementById("password");
+      const togglePassword = document.getElementById("toggle-password");
+      const meter = document.getElementById("password-strength");
+      const fill = document.getElementById("strength-fill");
+      const label = document.getElementById("strength-label");
+
+      const reqLength = document.getElementById("req-length");
+      const reqUpper = document.getElementById("req-upper");
+      const reqNumber = document.getElementById("req-number");
+      const reqSpecial = document.getElementById("req-special");
+
+      signupForm.addEventListener("submit", function () {
+        localStorage.setItem(AUTH_KEY, "true");
+      });
+
+      togglePassword.addEventListener("click", function () {
+        const isPassword = passwordInput.getAttribute("type") === "password";
+        passwordInput.setAttribute("type", isPassword ? "text" : "password");
+        togglePassword.textContent = isPassword ? "Hide" : "Show";
+      });
+
+      function markReq(element, met) {
+        element.classList.toggle("met", met);
+      }
+
+      function updateStrength(password) {
+        if (!password) {
+          meter.hidden = true;
+          fill.style.width = "0%";
+          label.textContent = "Weak";
+          return;
+        }
+
+        meter.hidden = false;
+        let score = 0;
+        const hasLength = password.length >= 8;
+        const hasUpper = /[A-Z]/.test(password);
+        const hasNumber = /[0-9]/.test(password);
+        const hasSpecial = /[^A-Za-z0-9]/.test(password);
+        const hasLong = password.length >= 12;
+
+        if (hasLength) score++;
+        if (hasLong) score++;
+        if (hasUpper) score++;
+        if (hasNumber) score++;
+        if (hasSpecial) score++;
+
+        markReq(reqLength, hasLength);
+        markReq(reqUpper, hasUpper);
+        markReq(reqNumber, hasNumber);
+        markReq(reqSpecial, hasSpecial);
+
+        const percent = (score / 5) * 100;
+        fill.style.width = percent + "%";
+
+        if (score <= 1) {
+          fill.style.backgroundColor = "#dc2626";
+          label.textContent = "Weak";
+        } else if (score <= 2) {
+          fill.style.backgroundColor = "#f97316";
+          label.textContent = "Fair";
+        } else if (score <= 3) {
+          fill.style.backgroundColor = "#7c6fe0";
+          label.textContent = "Good";
+        } else {
+          fill.style.backgroundColor = "#9f5ddb";
+          label.textContent = "Strong";
+        }
+      }
+
+      passwordInput.addEventListener("input", function (event) {
+        updateStrength(event.target.value);
+      });
+    </script>
+</body>
+</html>
+
+
+
+
+
+
+
+
